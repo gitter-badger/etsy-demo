@@ -19,12 +19,30 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li><%= link_to "Manage Listings", seller_path %></li>
-          <li><%= link_to "#{current_user.name}", edit_user_registration_path %></li>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+              Seller Account
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><%= link_to "Manage Listings", seller_path, role: "menuitem"  %></li>
+              <li role="presentation"><%= link_to "Sales History", sales_path, role: "menuitem" %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+              <%= current_user.name %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><%= link_to "Purchases History", purchases_path, role: "menuitem"  %></li>
+              <li role="presentation"><%= link_to "Edit Profile", edit_user_registration_path, role: "menuitem"  %></li>
+              <li role="presentation"><%= link_to "Logout", destroy_user_session_path, method: :delete, role: "menuitem"  %></li>
+            </ul>
+          </li>
         <% else %>
-          <li><%= link_to "Signup", new_user_registration_path %></li>
-          <li><%= link_to "Login", new_user_session_path %></li>
+          <li role="presentation"><%= link_to "Signup", new_user_registration_path, role: "menuitem"  %></li>
+          <li role="presentation"><%= link_to "Login", new_user_session_path, role: "menuitem"  %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
