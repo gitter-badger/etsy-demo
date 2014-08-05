@@ -11,13 +11,13 @@
   <tbody>
     <% @listings.each do |listing| %>
       <tr>
-        <td>
+        <td class="center">
           <%= link_to image_tag(listing.image.url(:thumb)), listing, title: "Show" %>
         </td>
-        <td><%= listing.name %></td>
-        <td><%= listing.description %></td>
-        <td><%= number_to_currency listing.price %></td>
-        <td>
+        <td class="center"><%= listing.name %></td>
+        <td class="center"><%= listing.description %></td>
+        <td class="center"><%= number_to_currency listing.price %></td>
+        <td class="center">
           <% if user_signed_in? && current_user == listing.user %>
             <!-- Single button -->
             <div class="btn-group">
