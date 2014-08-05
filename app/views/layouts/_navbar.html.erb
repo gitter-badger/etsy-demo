@@ -25,7 +25,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><%= link_to "Manage Listings", seller_path, role: "menuitem"  %></li>
+              <li role="presentation"><%= link_to "Purchases History", purchases_path, role: "menuitem"  %></li>
               <li role="presentation"><%= link_to "Sales History", sales_path, role: "menuitem" %></li>
             </ul>
           </li>
@@ -35,7 +35,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><%= link_to "Purchases History", purchases_path, role: "menuitem"  %></li>
+              <li role="presentation"><%= link_to "Manage Listings", seller_path, role: "menuitem"  %></li>
               <li role="presentation"><%= link_to "Edit Profile", edit_user_registration_path, role: "menuitem"  %></li>
               <li role="presentation"><%= link_to "Logout", destroy_user_session_path, method: :delete, role: "menuitem"  %></li>
             </ul>
