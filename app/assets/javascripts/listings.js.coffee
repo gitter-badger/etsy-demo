@@ -12,7 +12,6 @@ listing =
 
   handleStripeResponse: (status, response) ->
     if status == 200 #everything is ok
-      alert(response.id)
       $('#new_listing').append($('<input type="hidden" name="stripeToken" />').val(response.id))
       $('#new_listing')[0].submit()
     else

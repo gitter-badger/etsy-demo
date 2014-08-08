@@ -41,20 +41,23 @@ class OrdersController < ApplicationController
         :currency => "usd",
         :card => token
         )
-      flash[:notice] = "Thanks for ordering!"
     rescue Stripe::CardError => e
       flash[:danger] = e.message
     end
-
-    transfer = Stripe::Transfer.create(
-      # keep 5% of the listing price (converted to cents)
-      :amount => (@listing.price * 95).floor,
-      :currency => "usd",
-      :recipient => @seller.recipient
-      )
+    begin
+      transfer = Stripe::Transfer.create(
+        # keep 5% of the listing price (converted to cents)
+        :amount => (@listing.price * 95).floor,
+        :currency => "usd",
+        :recipient => @seller.recipient
+        )
+    rescue Stripe::InvalidRequestError => e
+      flash[:danger] = e.message
+    end
 
     respond_to do |format|
-      if @order.save
+      if charge.present? && transfer.present? && @order.save
+        flash[:notice] = "Thanks for ordering!"
         format.html { redirect_to root_url }
         format.json { render :show, status: :created, location: @order }
       else
