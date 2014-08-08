@@ -33,6 +33,22 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
 
+    Stripe.api_key = ENV["STRIPE_API_KEY"]
+    token = params[:stripeToken]
+
+    if current_user.recipient.blank?
+
+      recipient = Stripe::Recipient.create(
+        :name => current_user.name,
+        :type => "individual",
+        :bank_account => token,
+        :email => current_user.email
+        )
+      logger.info recipient
+    end
+    current_user.recipient = recipient.id
+    current_user.save
+
     respond_to do |format|
       if @listing.save
         format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
@@ -81,7 +97,7 @@ class ListingsController < ApplicationController
     end
 
     def check_user
-      if currrent_user != @listing.user
+      if current_user != @listing.user
         redirect_to root_url, notice: 'Sorry, this listing belongs to someone else.'
       end
     end
