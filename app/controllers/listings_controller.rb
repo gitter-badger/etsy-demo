@@ -37,15 +37,15 @@ class ListingsController < ApplicationController
     token = params[:stripeToken]
 
     if current_user.recipient.blank?
-
       recipient = Stripe::Recipient.create(
         :name => current_user.name,
         :type => "individual",
-        :bank_account => token,
-        :email => current_user.email
+        :bank_account => token
         )
       logger.info recipient
     end
+
+
     current_user.recipient = recipient.id
     current_user.save
 
